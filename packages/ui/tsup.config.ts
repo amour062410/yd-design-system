@@ -1,0 +1,59 @@
+import { defineConfig } from "tsup";
+
+const componentEntries = [
+  "src/components/button.tsx",
+  "src/components/card.tsx",
+  "src/components/input.tsx",
+  "src/components/link.tsx",
+  "src/components/radio.tsx",
+  "src/components/checkbox.tsx",
+  "src/components/switch.tsx",
+  "src/components/tabs.tsx",
+  "src/components/tag.tsx",
+  "src/components/badge.tsx",
+  "src/components/progress.tsx",
+  "src/components/statistic.tsx",
+  "src/components/empty.tsx",
+  "src/components/steps.tsx",
+  "src/components/business-progress.tsx",
+  "src/components/select.tsx",
+  "src/components/date-picker.tsx",
+  "src/components/time-picker.tsx",
+  "src/components/upload.tsx",
+  "src/components/table.tsx",
+  "src/components/modal.tsx",
+  "src/components/drawer.tsx",
+  "src/components/message.tsx",
+  "src/components/collapse.tsx",
+  "src/components/dashboard-section.tsx",
+];
+
+const businessPatternEntries = {
+  "business-patterns": "src/business-patterns.tsx",
+  "business-patterns/table": "src/business-patterns/entries/table.ts",
+  "business-patterns/progress": "src/business-patterns/entries/progress.ts",
+  "business-patterns/statistic": "src/business-patterns/entries/statistic.ts",
+  "business-patterns/tag": "src/business-patterns/entries/tag.ts",
+  "business-patterns/badge": "src/business-patterns/entries/badge.ts",
+  "business-patterns/steps": "src/business-patterns/entries/steps.ts",
+};
+
+export default defineConfig({
+  entry: {
+    index: "src/index.ts",
+    ...Object.fromEntries(
+      componentEntries.map((entry) => [
+        entry.replace("src/components/", "components/").replace(/\.tsx$/, ""),
+        entry,
+      ])
+    ),
+    ...businessPatternEntries,
+  },
+  format: ["esm"],
+  dts: true,
+  external: ["react", "react-dom"],
+  clean: true,
+  treeshake: true,
+  outExtension: () => ({ js: ".js" }),
+  onSuccess: "node scripts/post-build.mjs",
+});

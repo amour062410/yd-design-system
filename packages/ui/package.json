@@ -1,0 +1,179 @@
+{
+  "name": "@yd-ds/ui",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "sideEffects": ["**/*.css"],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./button": {
+      "types": "./dist/components/button.d.ts",
+      "import": "./dist/components/button.js"
+    },
+    "./card": {
+      "types": "./dist/components/card.d.ts",
+      "import": "./dist/components/card.js"
+    },
+    "./input": {
+      "types": "./dist/components/input.d.ts",
+      "import": "./dist/components/input.js"
+    },
+    "./link": {
+      "types": "./dist/components/link.d.ts",
+      "import": "./dist/components/link.js"
+    },
+    "./radio": {
+      "types": "./dist/components/radio.d.ts",
+      "import": "./dist/components/radio.js"
+    },
+    "./checkbox": {
+      "types": "./dist/components/checkbox.d.ts",
+      "import": "./dist/components/checkbox.js"
+    },
+    "./switch": {
+      "types": "./dist/components/switch.d.ts",
+      "import": "./dist/components/switch.js"
+    },
+    "./tabs": {
+      "types": "./dist/components/tabs.d.ts",
+      "import": "./dist/components/tabs.js"
+    },
+    "./tag": {
+      "types": "./dist/components/tag.d.ts",
+      "import": "./dist/components/tag.js"
+    },
+    "./badge": {
+      "types": "./dist/components/badge.d.ts",
+      "import": "./dist/components/badge.js"
+    },
+    "./progress": {
+      "types": "./dist/components/progress.d.ts",
+      "import": "./dist/components/progress.js"
+    },
+    "./statistic": {
+      "types": "./dist/components/statistic.d.ts",
+      "import": "./dist/components/statistic.js"
+    },
+    "./empty": {
+      "types": "./dist/components/empty.d.ts",
+      "import": "./dist/components/empty.js"
+    },
+    "./steps": {
+      "types": "./dist/components/steps.d.ts",
+      "import": "./dist/components/steps.js"
+    },
+    "./business-progress": {
+      "types": "./dist/components/business-progress.d.ts",
+      "import": "./dist/components/business-progress.js"
+    },
+    "./select": {
+      "types": "./dist/components/select.d.ts",
+      "import": "./dist/components/select.js"
+    },
+    "./date-picker": {
+      "types": "./dist/components/date-picker.d.ts",
+      "import": "./dist/components/date-picker.js"
+    },
+    "./time-picker": {
+      "types": "./dist/components/time-picker.d.ts",
+      "import": "./dist/components/time-picker.js"
+    },
+    "./upload": {
+      "types": "./dist/components/upload.d.ts",
+      "import": "./dist/components/upload.js"
+    },
+    "./table": {
+      "types": "./dist/components/table.d.ts",
+      "import": "./dist/components/table.js"
+    },
+    "./modal": {
+      "types": "./dist/components/modal.d.ts",
+      "import": "./dist/components/modal.js"
+    },
+    "./drawer": {
+      "types": "./dist/components/drawer.d.ts",
+      "import": "./dist/components/drawer.js"
+    },
+    "./message": {
+      "types": "./dist/components/message.d.ts",
+      "import": "./dist/components/message.js"
+    },
+    "./collapse": {
+      "types": "./dist/components/collapse.d.ts",
+      "import": "./dist/components/collapse.js"
+    },
+    "./dashboard-section": {
+      "types": "./dist/components/dashboard-section.d.ts",
+      "import": "./dist/components/dashboard-section.js"
+    },
+    "./business-patterns": {
+      "types": "./dist/business-patterns.d.ts",
+      "import": "./dist/business-patterns.js"
+    },
+    "./business-patterns/table": {
+      "types": "./dist/business-patterns/table.d.ts",
+      "import": "./dist/business-patterns/table.js"
+    },
+    "./business-patterns/progress": {
+      "types": "./dist/business-patterns/progress.d.ts",
+      "import": "./dist/business-patterns/progress.js"
+    },
+    "./business-patterns/statistic": {
+      "types": "./dist/business-patterns/statistic.d.ts",
+      "import": "./dist/business-patterns/statistic.js"
+    },
+    "./business-patterns/tag": {
+      "types": "./dist/business-patterns/tag.d.ts",
+      "import": "./dist/business-patterns/tag.js"
+    },
+    "./business-patterns/badge": {
+      "types": "./dist/business-patterns/badge.d.ts",
+      "import": "./dist/business-patterns/badge.js"
+    },
+    "./business-patterns/steps": {
+      "types": "./dist/business-patterns/steps.d.ts",
+      "import": "./dist/business-patterns/steps.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "eslint src --max-warnings 0"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.2.2",
+    "@yd-ds/themes": "workspace:*",
+    "@yd-ds/tokens": "workspace:*",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.511.0",
+    "tailwind-merge": "^3.3.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
+    "jsdom": "^26.1.0",
+    "vitest": "^3.1.2",
+    "@yd-ds/typescript-config": "workspace:*",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^3.4.17",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  }
+}

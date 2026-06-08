@@ -1,0 +1,19 @@
+---
+description: Figma-to-code rules for yd-design-system
+globs: packages/ui/**,packages/tokens/**,apps/docs-site/**
+alwaysApply: false
+---
+
+## Figma MCP integration (yd-design-system)
+
+### Required flow
+1. Run `get_design_context` for the exact node(s), then `get_screenshot` for visual reference.
+2. If the response is truncated, use `get_metadata` and re-fetch only the needed nodes.
+3. Translate React + Tailwind output into this repo's conventions before marking complete.
+
+### Implementation
+- UI components live in `packages/ui/src/components/`; export from `packages/ui/src/index.ts`.
+- Design tokens live in `packages/tokens/`; prefer existing tokens over hardcoded values.
+- Docs and examples live in `apps/docs-site/app/components/`.
+- Reuse `@yd/ui` components (Button, Input, Select, Table, etc.) instead of duplicating markup.
+- Match Figma visuals; resolve conflicts using design-system tokens from `packages/tokens`.

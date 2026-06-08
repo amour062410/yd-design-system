@@ -1,0 +1,14 @@
+/**
+ * Component library base styles.
+ * Consumers should import tokens + themes and Tailwind in their app entry CSS.
+ */
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

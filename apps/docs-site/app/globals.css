@@ -1,0 +1,213 @@
+@import "@yd-ds/tokens/css";
+@import "@yd-ds/themes/css";
+@import "../styles/showcase-tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply backdrop-blur-xl backdrop-saturate-150;
+    background: color-mix(in srgb, var(--color-surface-card) 82%, transparent);
+  }
+
+  .glass-panel {
+    @apply backdrop-blur-2xl backdrop-saturate-150;
+    background: color-mix(in srgb, var(--background) 55%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+    box-shadow:
+      0 4px 24px -4px rgba(22, 93, 255, 0.12),
+      inset 0 1px 0 color-mix(in srgb, white 40%, transparent);
+  }
+
+  .dark .glass-panel {
+    background: color-mix(in srgb, var(--card) 45%, transparent);
+    box-shadow:
+      0 8px 32px -8px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 color-mix(in srgb, white 8%, transparent);
+  }
+
+  .glass-panel-strong {
+    @apply glass-panel backdrop-blur-3xl;
+    background: color-mix(in srgb, var(--background) 72%, transparent);
+  }
+
+  .focus-ring {
+    @apply outline-none;
+    border-color: var(--color-border-focus) !important;
+    box-shadow:
+      var(--shadow-input),
+      0 0 0 3px var(--color-brand-ring);
+  }
+
+  .shadow-selected {
+    box-shadow: var(--shadow-selected);
+  }
+
+  .shadow-input {
+    box-shadow: var(--shadow-input);
+  }
+
+  .shadow-input-hover {
+    box-shadow: var(--shadow-input-hover);
+  }
+
+  .btn-primary {
+    border-radius: var(--radius-button);
+    background-color: var(--color-brand);
+    color: #ffffff;
+    box-shadow: var(--shadow-selected);
+    transition:
+      background-color var(--transition-base) ease,
+      box-shadow var(--transition-base) ease,
+      transform var(--transition-fast) ease;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-brand-button-hover);
+  }
+
+  .btn-primary:active {
+    background-color: var(--color-brand-button-active);
+    transform: scale(0.98);
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .animate-fade-up-delay-1 {
+    animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  }
+
+  .animate-fade-up-delay-2 {
+    animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+  }
+
+  .animate-fade-up-delay-3 {
+    animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+  }
+
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 5s ease-in-out 1.2s infinite;
+  }
+
+  .animate-float-slow {
+    animation: float 6.5s ease-in-out 0.6s infinite;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes drawer-mask-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes drawer-slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawer-slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawer-slide-in-top {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes drawer-slide-in-bottom {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes message-fade-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-enter {
+  animation: message-fade-slide-in var(--message-animation-duration) ease-out;
+}
