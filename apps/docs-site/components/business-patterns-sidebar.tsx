@@ -14,7 +14,7 @@ export function BusinessPatternsSidebar() {
   return (
     <aside className="w-full shrink-0 md:w-[220px]">
       <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-        Business Patterns
+        业务模式
       </p>
       <nav aria-label="业务案例目录">
         <ul className="space-y-0.5">

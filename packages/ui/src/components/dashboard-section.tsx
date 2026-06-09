@@ -1,5 +1,6 @@
 export {
   DashboardSection,
+  type DashboardSectionActionsPlacement,
   type DashboardSectionPadding,
   type DashboardSectionProps,
   type DashboardSectionVariant,

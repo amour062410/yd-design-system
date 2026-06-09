@@ -19,6 +19,10 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground active:bg-accent/80",
         link: "text-primary underline-offset-4 hover:underline",
+        text:
+          "border-0 bg-transparent shadow-none text-[color:var(--color-text-primary,#1d2129)] hover:bg-[color:rgba(0,0,0,0.06)] active:bg-[color:rgba(0,0,0,0.15)] dark:hover:bg-[color:rgba(255,255,255,0.08)] dark:active:bg-[color:rgba(255,255,255,0.15)]",
+        textBrand:
+          "border-0 bg-transparent shadow-none text-[color:var(--color-brand,#165dff)] hover:bg-[color:var(--color-brand-hover,rgba(22,93,255,0.06))] hover:text-[color:var(--color-brand-button-hover,#4080ff)] active:bg-[color:var(--color-brand-active,rgba(22,93,255,0.1))] active:text-[color:var(--color-brand-button-active,#0e42d2)] disabled:bg-transparent disabled:text-[color:var(--color-text-disabled,#c9cdd4)]",
         dashed:
           "border border-dashed border-input bg-background hover:border-primary hover:text-primary active:bg-accent/50",
       },

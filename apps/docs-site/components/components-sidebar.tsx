@@ -3,48 +3,101 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@yd-ds/ui";
-import { componentNavigation, formatComponentNavLabel } from "@/lib/component-navigation";
+import {
+  componentNavigation,
+  componentCategoryOrder,
+  componentCategoryLabels,
+  formatComponentNavLabel,
+  type ComponentCategory,
+} from "@/lib/component-navigation";
+
+/** Group items by category, respecting categoryOrder */
+function groupByCategory(items: typeof componentNavigation) {
+  const groups = new Map<ComponentCategory, typeof componentNavigation>();
+  for (const item of items) {
+    const cat = item.category;
+    if (!groups.has(cat)) groups.set(cat, []);
+    groups.get(cat)!.push(item);
+  }
+  return componentCategoryOrder
+    .filter((cat) => groups.has(cat))
+    .map((cat) => ({
+      category: cat,
+      label: componentCategoryLabels[cat],
+      items: groups.get(cat)!,
+    }));
+}
 
 export function ComponentsSidebar() {
   const pathname = usePathname();
+  const groups = groupByCategory(componentNavigation);
 
   return (
-    <aside className="hidden w-60 shrink-0 overflow-hidden md:block">
-      <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-        组件
-      </p>
-      <nav className="flex flex-col gap-0.5 text-sm">
-        {componentNavigation.map((item) => {
-          const isActive = pathname === item.href;
-          const isReady = item.ready !== false;
+    <aside className="hidden w-56 shrink-0 overflow-y-auto pb-8 md:block">
+      {/* Page title */}
+      <h2 className="mb-5 text-sm font-semibold text-text-primary">组件</h2>
 
-          return (
-            <Link
-              key={item.href}
-              href={isReady ? item.href : "#"}
-              aria-current={isActive ? "page" : undefined}
-              aria-disabled={!isReady}
-              className={cn(
-                "relative block rounded-md px-2.5 py-1.5 transition-colors",
-                isActive
-                  ? "max-w-full bg-primary/10 font-medium text-primary before:absolute before:left-0 before:top-1.5 before:h-[calc(100%-12px)] before:w-0.5 before:rounded-full before:bg-primary"
-                  : isReady
-                    ? "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                    : "cursor-not-allowed text-muted-foreground/50"
-              )}
-              onClick={(e) => {
-                if (!isReady) e.preventDefault();
-              }}
-            >
-              <span className="block truncate">{formatComponentNavLabel(item)}</span>
-              {!isReady ? (
-                <span className="ml-1.5 text-[10px] text-muted-foreground/60">
-                  待迁移
-                </span>
-              ) : null}
-            </Link>
-          );
-        })}
+      <nav className="flex flex-col">
+        {groups.map((group, groupIdx) => (
+          <div
+            key={group.category}
+            className={cn(
+              "flex flex-col",
+              groupIdx > 0 && "mt-5",
+              groupIdx < groups.length - 1 && "pb-5",
+              groupIdx < groups.length - 1 && "border-b border-border"
+            )}
+          >
+            {/* Category header — Ant Design style: label + count */}
+            <div className="mb-1 flex items-center justify-between px-3">
+              <span className="text-[11px] font-medium tracking-wide text-text-tertiary">
+                {group.label}
+              </span>
+              <span className="inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-surface-card-soft px-1.5 text-[10px] font-medium text-text-tertiary">
+                {group.items.length}
+              </span>
+            </div>
+
+            {/* Menu items */}
+            <div className="flex flex-col">
+              {group.items.map((item) => {
+                const isActive = pathname === item.href;
+                const isReady = item.ready !== false;
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={isReady ? item.href : "#"}
+                    aria-current={isActive ? "page" : undefined}
+                    aria-disabled={!isReady}
+                    className={cn(
+                      "group relative flex h-8 items-center rounded-md px-3 text-[13px] leading-none transition-colors duration-150",
+                      isActive
+                        ? "bg-brand-muted font-medium text-brand"
+                        : isReady
+                          ? "text-text-secondary hover:bg-surface-card-soft hover:text-text-primary"
+                          : "cursor-not-allowed text-text-disabled"
+                    )}
+                    onClick={(e) => {
+                      if (!isReady) e.preventDefault();
+                    }}
+                  >
+                    {/* Active indicator bar — left edge */}
+                    {isActive && (
+                      <span className="absolute left-0 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-r-full bg-brand" />
+                    )}
+                    <span className="truncate">{formatComponentNavLabel(item)}</span>
+                    {!isReady && (
+                      <span className="ml-auto text-[10px] text-text-disabled">
+                        待迁移
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </nav>
     </aside>
   );

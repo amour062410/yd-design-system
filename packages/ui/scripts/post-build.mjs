@@ -12,6 +12,7 @@ fs.copyFileSync(
 const clientEntries = [
   ...[
     "input.js",
+    "input-number.js",
     "link.js",
     "radio.js",
     "checkbox.js",
@@ -30,9 +31,23 @@ const clientEntries = [
     "empty.js",
     "steps.js",
     "collapse.js",
+    "tooltip.js",
+    "popconfirm.js",
+    "pagination.js",
+    "descriptions.js",
+    "divider.js",
+    "dropdown.js",
+    "menu.js",
+    "cascader.js",
+    "form.js",
+    "card.js",
+    "tree.js",
+    "transfer.js",
+    "transfer-pro.js",
   ].map((file) => path.join(root, "dist/components", file)),
   path.join(root, "dist/business-patterns.js"),
-  ...["table.js", "progress.js", "statistic.js", "tag.js", "badge.js", "steps.js"].map(
+  path.join(root, "dist/business/filter-bar.js"),
+  ...["table.js", "progress.js", "statistic.js", "tag.js", "badge.js", "steps.js", "feedback.js", "navigation.js", "detail.js", "layout.js"].map(
     (file) => path.join(root, "dist/business-patterns", file)
   ),
 ];

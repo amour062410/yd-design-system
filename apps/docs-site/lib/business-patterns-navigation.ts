@@ -12,6 +12,24 @@ export const businessPatternNavigation: BusinessPatternNavItem[] = [
     labelZh: "证照管理",
     ready: true,
   },
+  {
+    href: "/business-patterns/store-management",
+    label: "Store Management",
+    labelZh: "门店管理",
+    ready: true,
+  },
+  {
+    href: "/business/store-tree",
+    label: "Store Tree",
+    labelZh: "门店树",
+    ready: true,
+  },
+  {
+    href: "/business-patterns/inspection-config",
+    label: "Inspection Config",
+    labelZh: "巡检配置",
+    ready: true,
+  },
 ];
 
 export const readyBusinessPatternNavigation = businessPatternNavigation.filter(

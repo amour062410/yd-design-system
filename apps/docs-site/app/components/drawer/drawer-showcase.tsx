@@ -588,7 +588,7 @@ export function DrawerAnatomyShowcase() {
       >
         <ol className="list-decimal space-y-2 pl-5 text-sm">
           <li>
-            <strong>Header</strong>：标题、描述、状态标签、关闭按钮（min 52px）
+            <strong>Header</strong>：标题、描述、状态标签、关闭按钮（min 56px，标题区上下各 16px）
           </li>
           <li>
             <strong>Body</strong>：可滚动内容区，padding 24px

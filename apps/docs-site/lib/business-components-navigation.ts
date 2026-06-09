@@ -7,6 +7,12 @@ export type BusinessComponentNavItem = {
 
 export const businessComponentsNavigation: BusinessComponentNavItem[] = [
   {
+    href: "/components/filter-bar",
+    label: "FilterBar",
+    labelZh: "业务筛选栏",
+    ready: true,
+  },
+  {
     href: "/business-components/rectification-progress",
     label: "RectificationProgress",
     labelZh: "整改完成率",
@@ -60,5 +66,4 @@ export function matchesBusinessComponentSearch(
   );
 }
 
-export const businessComponentsEntryHref =
-  "/business-components/rectification-progress";
+export const businessComponentsEntryHref = "/components/filter-bar";

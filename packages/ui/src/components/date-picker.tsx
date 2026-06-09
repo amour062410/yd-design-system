@@ -4,12 +4,15 @@ import {
   useCallback,
   useEffect,
   useId,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
   type KeyboardEvent,
   type ReactNode,
 } from "react";
+import { createPortal } from "react-dom";
 import {
   Calendar,
   ChevronLeft,
@@ -121,22 +124,49 @@ function getShortcutRange(key: string): RangeValue {
   return [start, end];
 }
 
+const DATE_PICKER_PANEL_GAP = 6;
+
+function computeDatePickerPanelPosition(
+  triggerRect: DOMRect,
+  panelSize: { width: number; height: number },
+  viewport: { width: number; height: number }
+) {
+  const margin = 8;
+  let x = triggerRect.left;
+  let y = triggerRect.bottom + DATE_PICKER_PANEL_GAP;
+
+  if (y + panelSize.height > viewport.height - margin) {
+    const above = triggerRect.top - panelSize.height - DATE_PICKER_PANEL_GAP;
+    if (above >= margin) {
+      y = above;
+    }
+  }
+
+  if (x + panelSize.width > viewport.width - margin) {
+    x = Math.max(margin, viewport.width - panelSize.width - margin);
+  }
+  if (x < margin) x = margin;
+
+  return { x, y };
+}
+
 interface PanelProps {
   open: boolean;
   closing: boolean;
   children: ReactNode;
   className?: string;
   panelRef?: React.RefObject<HTMLDivElement | null>;
+  style?: CSSProperties;
 }
 
-function Panel({ open, closing, children, className, panelRef }: PanelProps) {
+function Panel({ open, closing, children, className, panelRef, style }: PanelProps) {
   if (!open && !closing) return null;
   return (
     <div
       ref={panelRef}
       role="dialog"
       className={cn(
-        "absolute left-0 top-[calc(100%+6px)] z-50 min-w-[300px] overflow-hidden bg-surface-card",
+        "fixed z-[var(--datepicker-z-index,1050)] min-w-[300px] overflow-hidden bg-surface-card",
         open && !closing && "animate-panel-in",
         closing && "animate-panel-out",
         className
@@ -144,6 +174,7 @@ function Panel({ open, closing, children, className, panelRef }: PanelProps) {
       style={{
         borderRadius: "var(--datepicker-radius)",
         boxShadow: "var(--datepicker-panel-shadow)",
+        ...style,
       }}
     >
       {children}
@@ -457,6 +488,8 @@ export function DatePicker({
   const containerRef = useRef<HTMLDivElement>(null);
   const sizeSpec = datePickerSizeSpecs[size];
   const panelRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const [panelPos, setPanelPos] = useState<{ x: number; y: number } | null>(null);
   const [uncontrolled, setUncontrolled] = useState<DatePickerValue>(defaultValue);
   const value = controlledValue !== undefined ? controlledValue : uncontrolled;
 
@@ -495,13 +528,43 @@ export function DatePicker({
   }, [disabled, showcaseState, isShowcase]);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!open && !closing) return;
+
+    const updatePosition = () => {
+      const triggerEl = containerRef.current;
+      const panelEl = panelRef.current;
+      if (!triggerEl || !panelEl) return;
+
+      const triggerRect = triggerEl.getBoundingClientRect();
+      setPanelPos(
+        computeDatePickerPanelPosition(
+          triggerRect,
+          { width: panelEl.offsetWidth, height: panelEl.offsetHeight },
+          { width: window.innerWidth, height: window.innerHeight }
+        )
+      );
+    };
+
+    updatePosition();
+    requestAnimationFrame(updatePosition);
+    window.addEventListener("scroll", updatePosition, true);
+    window.addEventListener("resize", updatePosition);
+    return () => {
+      window.removeEventListener("scroll", updatePosition, true);
+      window.removeEventListener("resize", updatePosition);
+    };
+  }, [open, closing, calendarKey, mode, range, shortcuts, showTime]);
+
+  useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
-        if (open) closePanel();
-      }
+      const target = e.target as Node;
+      if (containerRef.current?.contains(target)) return;
+      if (panelRef.current?.contains(target)) return;
+      if (open) closePanel();
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -880,6 +943,77 @@ export function DatePicker({
     );
   };
 
+  const panelStyle: CSSProperties = {
+    left: panelPos?.x ?? -9999,
+    top: panelPos?.y ?? -9999,
+    visibility: panelPos ? "visible" : "hidden",
+  };
+
+  const panelNode =
+    open || closing ? (
+      range ? (
+        <Panel
+          open={open}
+          closing={closing}
+          panelRef={panelRef}
+          style={panelStyle}
+          className={cn(shortcuts ? "min-w-[440px]" : "min-w-[620px]")}
+        >
+          {panelContent()}
+          <div className="flex items-center justify-between border-t border-border/80 px-5 py-3">
+            <button
+              type="button"
+              className="text-[13px] font-medium text-brand transition-colors duration-base hover:text-brand/80"
+              onClick={() => setValue([new Date(), new Date()])}
+            >
+              此刻
+            </button>
+            <button type="button" className={PRIMARY_BTN} onClick={closePanel}>
+              确定
+            </button>
+          </div>
+        </Panel>
+      ) : (
+        <Panel
+          open={open}
+          closing={closing}
+          panelRef={panelRef}
+          style={panelStyle}
+          className={mode === "month" || mode === "year" ? "min-w-[280px]" : ""}
+        >
+          {panelContent()}
+          {mode === "date" && !showTime && (
+            <div className="border-t border-border/80 py-3 text-center">
+              <button
+                type="button"
+                className="text-[13px] font-medium text-brand transition-colors duration-base hover:text-brand/80"
+                onClick={handleToday}
+              >
+                今天
+              </button>
+            </div>
+          )}
+          {(showTime || mode === "datetime") && (
+            <div className="flex items-center justify-between border-t border-border/80 px-5 py-3">
+              <button
+                type="button"
+                className="text-[13px] font-medium text-brand transition-colors duration-base hover:text-brand/80"
+                onClick={() => {
+                  const n = new Date();
+                  setValue(n);
+                }}
+              >
+                此刻
+              </button>
+              <button type="button" className={PRIMARY_BTN} onClick={closePanel}>
+                确定
+              </button>
+            </div>
+          )}
+        </Panel>
+      )
+    ) : null;
+
   return (
     <div
       ref={containerRef}
@@ -888,77 +1022,8 @@ export function DatePicker({
         range && shortcuts ? "max-w-[400px]" : range ? "max-w-[420px]" : "max-w-[320px]"
       )}
     >
-      {range ? (
-        <>
-          {renderTrigger()}
-          <Panel
-            open={open}
-            closing={closing}
-            panelRef={panelRef}
-            className={cn(
-              shortcuts ? "min-w-[440px]" : "min-w-[620px]"
-            )}
-          >
-            {panelContent()}
-            <div className="flex items-center justify-between border-t border-border/80 px-5 py-3">
-              <button
-                type="button"
-                className="text-[13px] font-medium text-brand transition-colors duration-base hover:text-brand/80"
-                onClick={() => setValue([new Date(), new Date()])}
-              >
-                此刻
-              </button>
-              <button
-                type="button"
-                className={PRIMARY_BTN}
-                onClick={closePanel}
-              >
-                确定
-              </button>
-            </div>
-          </Panel>
-        </>
-      ) : (
-        <>
-          {renderTrigger()}
-          <Panel
-            open={open}
-            closing={closing}
-            panelRef={panelRef}
-            className={mode === "month" || mode === "year" ? "min-w-[280px]" : ""}
-          >
-            {panelContent()}
-            {mode === "date" && !showTime && (
-              <div className="border-t border-border/80 py-3 text-center">
-                <button
-                  type="button"
-                  className="text-[13px] font-medium text-brand transition-colors duration-base hover:text-brand/80"
-                  onClick={handleToday}
-                >
-                  今天
-                </button>
-              </div>
-            )}
-            {(showTime || mode === "datetime") && (
-              <div className="flex items-center justify-between border-t border-border/80 px-5 py-3">
-                <button
-                  type="button"
-                  className="text-[13px] font-medium text-brand transition-colors duration-base hover:text-brand/80"
-                  onClick={() => {
-                    const n = new Date();
-                    setValue(n);
-                  }}
-                >
-                  此刻
-                </button>
-                <button type="button" className={PRIMARY_BTN} onClick={closePanel}>
-                  确定
-                </button>
-              </div>
-            )}
-          </Panel>
-        </>
-      )}
+      {renderTrigger()}
+      {mounted && panelNode ? createPortal(panelNode, document.body) : null}
     </div>
   );
 }

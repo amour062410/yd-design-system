@@ -135,13 +135,13 @@ export function DrawerHeader({
   return (
     <div
       className={cn(
-        "flex shrink-0 items-start justify-between gap-3 border-b border-[color:var(--drawer-border-color)]",
+        "flex shrink-0 justify-between gap-3 border-b border-[color:var(--drawer-border-color)]",
+        hasMeta ? "items-start" : "items-center",
         className
       )}
       style={{
         boxSizing: "border-box",
         minHeight: "var(--drawer-header-height)",
-        height: hasMeta ? undefined : "var(--drawer-header-height)",
         padding: hasMeta
           ? "16px var(--drawer-padding)"
           : "0 var(--drawer-padding)",

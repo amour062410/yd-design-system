@@ -3,9 +3,11 @@ import { radius } from "./radius";
 import { shadowTokens } from "./shadows";
 
 export const selectTokens = {
-  "select-height-sm": "32px",
-  "select-height-md": "40px",
-  "select-height-lg": "48px",
+  // 对齐 YD 控件高度阶梯（controlHeight：SM 24 / MD 32 / LG 40），
+  // 与 Input(h-8=32) / DatePicker(32) 默认保持一致。
+  "select-height-sm": "24px",
+  "select-height-md": "32px",
+  "select-height-lg": "40px",
   "select-border-default": neutralGray[4],
   "select-border-focus": brandPrimary[6],
   "select-border-error": functionalColors.danger,

@@ -47,9 +47,12 @@ export const DashboardSection = React.forwardRef<
 >(function DashboardSection(
   {
     title,
+    subtitle,
     description,
+    filters,
     extra,
     actions,
+    actionsPlacement = "footer",
     variant = "card",
     padding = "middle",
     className,
@@ -58,10 +61,15 @@ export const DashboardSection = React.forwardRef<
   },
   ref
 ) {
-  const hasHeader =
-    title != null || description != null || extra != null;
+  const actionsInHeader = actionsPlacement === "header" && actions != null;
+  const actionsInFooter = actionsPlacement === "footer" && actions != null;
+
+  const hasTitleBlock =
+    title != null || subtitle != null || description != null;
+  const hasHeaderControls =
+    filters != null || extra != null || actionsInHeader;
+  const hasHeader = hasTitleBlock || hasHeaderControls;
   const hasContent = children != null;
-  const hasActions = actions != null;
 
   const zonePadding = ZONE_PADDING[variant][padding];
 
@@ -74,16 +82,25 @@ export const DashboardSection = React.forwardRef<
       {hasHeader ? (
         <header
           className={cn(
-            "flex items-start justify-between gap-4",
+            "flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4",
             zonePadding,
-            (hasContent || hasActions) && "border-b border-border"
+            (hasContent || actionsInFooter) && "border-b border-border"
           )}
         >
-          {title != null || description != null ? (
+          {hasTitleBlock ? (
             <div className={cn("flex min-w-0 flex-col", TITLE_GAP[padding])}>
-              {title != null ? (
-                <div className="truncate text-base font-semibold leading-tight tracking-tight">
-                  {title}
+              {title != null || subtitle != null ? (
+                <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                  {title != null ? (
+                    <span className="truncate text-base font-semibold leading-tight tracking-tight">
+                      {title}
+                    </span>
+                  ) : null}
+                  {subtitle != null ? (
+                    <span className="truncate text-sm font-normal text-muted-foreground">
+                      {subtitle}
+                    </span>
+                  ) : null}
                 </div>
               ) : null}
               {description != null ? (
@@ -93,8 +110,23 @@ export const DashboardSection = React.forwardRef<
               ) : null}
             </div>
           ) : null}
-          {extra != null ? (
-            <div className="flex shrink-0 items-center gap-2">{extra}</div>
+
+          {hasHeaderControls ? (
+            <div className="flex flex-wrap items-center gap-2 sm:shrink-0 sm:justify-end">
+              {filters != null ? (
+                <div className="flex flex-wrap items-center gap-2">
+                  {filters}
+                </div>
+              ) : null}
+              {extra != null ? (
+                <div className="flex flex-wrap items-center gap-2">{extra}</div>
+              ) : null}
+              {actionsInHeader ? (
+                <div className="flex flex-wrap items-center gap-2">
+                  {actions}
+                </div>
+              ) : null}
+            </div>
           ) : null}
         </header>
       ) : null}
@@ -103,7 +135,7 @@ export const DashboardSection = React.forwardRef<
         <div className={cn("min-w-0 flex-1", zonePadding)}>{children}</div>
       ) : null}
 
-      {hasActions ? (
+      {actionsInFooter ? (
         <footer
           className={cn(
             "flex flex-wrap items-center gap-2",

@@ -14,7 +14,7 @@ export function BusinessComponentsSidebar() {
   return (
     <aside className="w-full shrink-0 overflow-hidden md:w-60">
       <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-        巡检业务组件
+        业务组件
       </p>
       <nav className="flex flex-col gap-0.5 text-sm">
         {businessComponentsNavigation.map((item) => {

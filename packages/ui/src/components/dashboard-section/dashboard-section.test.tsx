@@ -41,6 +41,63 @@ describe("DashboardSection", () => {
     expect(container.querySelector("footer")).toBeNull();
   });
 
+  it("renders subtitle and filters in the header", () => {
+    const { container } = render(
+      <DashboardSection
+        title="运营驾驶舱"
+        subtitle="华东一区"
+        filters={<button type="button">今日</button>}
+      >
+        内容
+      </DashboardSection>
+    );
+
+    const header = container.querySelector("header");
+    expect(header).not.toBeNull();
+    expect(screen.getByText("华东一区")).toBeTruthy();
+    const filterButton = screen.getByRole("button", { name: "今日" });
+    expect(header?.contains(filterButton)).toBe(true);
+  });
+
+  it("keeps actions in the footer by default (non-breaking)", () => {
+    const { container } = render(
+      <DashboardSection title="标题" actions={<button type="button">导出</button>}>
+        内容
+      </DashboardSection>
+    );
+
+    const footer = container.querySelector("footer");
+    const actionButton = screen.getByRole("button", { name: "导出" });
+    expect(footer?.contains(actionButton)).toBe(true);
+  });
+
+  it("moves actions into the header when actionsPlacement is header", () => {
+    const { container } = render(
+      <DashboardSection
+        title="标题"
+        actionsPlacement="header"
+        actions={<button type="button">导出</button>}
+      >
+        内容
+      </DashboardSection>
+    );
+
+    expect(container.querySelector("footer")).toBeNull();
+    const header = container.querySelector("header");
+    const actionButton = screen.getByRole("button", { name: "导出" });
+    expect(header?.contains(actionButton)).toBe(true);
+  });
+
+  it("renders a header when only filters are provided", () => {
+    const { container } = render(
+      <DashboardSection filters={<button type="button">本周</button>}>
+        内容
+      </DashboardSection>
+    );
+
+    expect(container.querySelector("header")).not.toBeNull();
+  });
+
   it("applies card chrome for the default variant", () => {
     const { container } = render(
       <DashboardSection title="卡片">内容</DashboardSection>

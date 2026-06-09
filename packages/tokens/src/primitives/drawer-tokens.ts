@@ -7,7 +7,7 @@ export const drawerTokens = {
   "drawer-width-md": "480px",
   "drawer-width-lg": "640px",
   "drawer-width-xl": "800px",
-  "drawer-header-height": "52px",
+  "drawer-header-height": "56px",
   "drawer-footer-height": "56px",
   "drawer-padding": "24px",
   "drawer-body-gap": "16px",
@@ -66,7 +66,7 @@ export const drawerDesignSpecRows = [
 ] as const;
 
 export const drawerAnatomySpecRows = [
-  { part: "Header", value: "auto · min 52px", desc: "标题 + 描述 + 状态标签 + 关闭" },
+  { part: "Header", value: "auto · min 56px", desc: "标题 + 描述 + 状态标签 + 关闭（标题区上下各 16px）" },
   { part: "Body", value: "flex-1 scroll", desc: "Header ↓ 24px ↓ 内容，可滚动" },
   { part: "Footer", value: "56px", desc: "固定底部，取消 + 保存，右对齐" },
   { part: "Close Button", value: "32px", desc: "Header 右侧 × 关闭" },

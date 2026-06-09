@@ -77,21 +77,50 @@ export const OperationCockpit = {
   render: () => (
     <DashboardSection
       title="运营驾驶舱"
+      subtitle="华东一区"
       description="实时经营概览 · 最近更新 2 分钟前"
-      extra={
-        <div className="flex items-center gap-2">
+      filters={
+        <>
           <Button size="sm" variant="outline">今日</Button>
           <Button size="sm" variant="ghost">本周</Button>
           <Button size="sm" variant="ghost">本月</Button>
-          <Button size="sm">导出</Button>
-        </div>
+        </>
       }
+      actions={<Button size="sm">导出</Button>}
+      actionsPlacement="header"
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Metric label="今日营业额" value="¥128,640" hint="环比 +12.4%" />
         <Metric label="订单数" value="3,182" hint="环比 +6.1%" />
         <Metric label="活跃门店" value="96 / 128" hint="覆盖率 75%" />
         <Metric label="客单价" value="¥40.4" hint="环比 -1.2%" />
+      </div>
+    </DashboardSection>
+  ),
+};
+
+export const DataAnalysis = {
+  name: "数据分析",
+  render: () => (
+    <DashboardSection
+      title="经营数据分析"
+      subtitle="2025 Q2"
+      description="按维度对比关键经营指标"
+      filters={
+        <>
+          <Button size="sm" variant="outline">时间：本季度</Button>
+          <Button size="sm" variant="outline">维度：门店</Button>
+          <Button size="sm" variant="ghost">更多筛选</Button>
+        </>
+      }
+      extra={<Tag status="primary">实时</Tag>}
+      actions={<Button size="sm">导出报表</Button>}
+      actionsPlacement="header"
+    >
+      <div className="grid gap-4 sm:grid-cols-3">
+        <Metric label="GMV" value="¥3.28M" hint="同比 +18.2%" />
+        <Metric label="转化率" value="4.6%" hint="环比 +0.4pt" />
+        <Metric label="复购率" value="32.1%" hint="环比 -1.1pt" />
       </div>
     </DashboardSection>
   ),

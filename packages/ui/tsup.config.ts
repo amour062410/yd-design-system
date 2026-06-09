@@ -3,7 +3,11 @@ import { defineConfig } from "tsup";
 const componentEntries = [
   "src/components/button.tsx",
   "src/components/card.tsx",
+  "src/components/tree.tsx",
+  "src/components/transfer.tsx",
+  "src/components/transfer-pro.tsx",
   "src/components/input.tsx",
+  "src/components/input-number.tsx",
   "src/components/link.tsx",
   "src/components/radio.tsx",
   "src/components/checkbox.tsx",
@@ -17,6 +21,7 @@ const componentEntries = [
   "src/components/steps.tsx",
   "src/components/business-progress.tsx",
   "src/components/select.tsx",
+  "src/components/cascader.tsx",
   "src/components/date-picker.tsx",
   "src/components/time-picker.tsx",
   "src/components/upload.tsx",
@@ -26,6 +31,14 @@ const componentEntries = [
   "src/components/message.tsx",
   "src/components/collapse.tsx",
   "src/components/dashboard-section.tsx",
+  "src/components/form.tsx",
+  "src/components/tooltip.tsx",
+  "src/components/popconfirm.tsx",
+  "src/components/pagination.tsx",
+  "src/components/descriptions.tsx",
+  "src/components/divider.tsx",
+  "src/components/dropdown.tsx",
+  "src/components/menu.tsx",
 ];
 
 const businessPatternEntries = {
@@ -36,6 +49,11 @@ const businessPatternEntries = {
   "business-patterns/tag": "src/business-patterns/entries/tag.ts",
   "business-patterns/badge": "src/business-patterns/entries/badge.ts",
   "business-patterns/steps": "src/business-patterns/entries/steps.ts",
+  "business-patterns/feedback": "src/business-patterns/entries/feedback.ts",
+  "business-patterns/navigation": "src/business-patterns/entries/navigation.ts",
+  "business-patterns/detail": "src/business-patterns/entries/detail.ts",
+  "business-patterns/layout": "src/business-patterns/entries/layout.ts",
+  "business/filter-bar": "src/business/filter-bar.tsx",
 };
 
 export default defineConfig({

@@ -51,5 +51,6 @@ export {
   getInspectionStatusLabel,
   type InspectionStatus,
 } from "./inspection-status-tag";
+export { RowActionDropdown, type RowActionDropdownProps } from "./row-action-dropdown";
 export type * from "./inspection.types";
 export type * from "./inspection-risk.types";

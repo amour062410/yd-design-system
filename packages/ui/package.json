@@ -19,9 +19,25 @@
       "types": "./dist/components/card.d.ts",
       "import": "./dist/components/card.js"
     },
+    "./tree": {
+      "types": "./dist/components/tree.d.ts",
+      "import": "./dist/components/tree.js"
+    },
+    "./transfer": {
+      "types": "./dist/components/transfer.d.ts",
+      "import": "./dist/components/transfer.js"
+    },
+    "./transfer-pro": {
+      "types": "./dist/components/transfer-pro.d.ts",
+      "import": "./dist/components/transfer-pro.js"
+    },
     "./input": {
       "types": "./dist/components/input.d.ts",
       "import": "./dist/components/input.js"
+    },
+    "./input-number": {
+      "types": "./dist/components/input-number.d.ts",
+      "import": "./dist/components/input-number.js"
     },
     "./link": {
       "types": "./dist/components/link.d.ts",
@@ -75,6 +91,10 @@
       "types": "./dist/components/select.d.ts",
       "import": "./dist/components/select.js"
     },
+    "./cascader": {
+      "types": "./dist/components/cascader.d.ts",
+      "import": "./dist/components/cascader.js"
+    },
     "./date-picker": {
       "types": "./dist/components/date-picker.d.ts",
       "import": "./dist/components/date-picker.js"
@@ -111,6 +131,38 @@
       "types": "./dist/components/dashboard-section.d.ts",
       "import": "./dist/components/dashboard-section.js"
     },
+    "./form": {
+      "types": "./dist/components/form.d.ts",
+      "import": "./dist/components/form.js"
+    },
+    "./tooltip": {
+      "types": "./dist/components/tooltip.d.ts",
+      "import": "./dist/components/tooltip.js"
+    },
+    "./popconfirm": {
+      "types": "./dist/components/popconfirm.d.ts",
+      "import": "./dist/components/popconfirm.js"
+    },
+    "./pagination": {
+      "types": "./dist/components/pagination.d.ts",
+      "import": "./dist/components/pagination.js"
+    },
+    "./descriptions": {
+      "types": "./dist/components/descriptions.d.ts",
+      "import": "./dist/components/descriptions.js"
+    },
+    "./divider": {
+      "types": "./dist/components/divider.d.ts",
+      "import": "./dist/components/divider.js"
+    },
+    "./dropdown": {
+      "types": "./dist/components/dropdown.d.ts",
+      "import": "./dist/components/dropdown.js"
+    },
+    "./menu": {
+      "types": "./dist/components/menu.d.ts",
+      "import": "./dist/components/menu.js"
+    },
     "./business-patterns": {
       "types": "./dist/business-patterns.d.ts",
       "import": "./dist/business-patterns.js"
@@ -138,6 +190,26 @@
     "./business-patterns/steps": {
       "types": "./dist/business-patterns/steps.d.ts",
       "import": "./dist/business-patterns/steps.js"
+    },
+    "./business-patterns/feedback": {
+      "types": "./dist/business-patterns/feedback.d.ts",
+      "import": "./dist/business-patterns/feedback.js"
+    },
+    "./business-patterns/navigation": {
+      "types": "./dist/business-patterns/navigation.d.ts",
+      "import": "./dist/business-patterns/navigation.js"
+    },
+    "./business-patterns/detail": {
+      "types": "./dist/business-patterns/detail.d.ts",
+      "import": "./dist/business-patterns/detail.js"
+    },
+    "./business-patterns/layout": {
+      "types": "./dist/business-patterns/layout.d.ts",
+      "import": "./dist/business-patterns/layout.js"
+    },
+    "./business/filter-bar": {
+      "types": "./dist/business/filter-bar.d.ts",
+      "import": "./dist/business/filter-bar.js"
     }
   },
   "scripts": {

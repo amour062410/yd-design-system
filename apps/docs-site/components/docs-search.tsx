@@ -24,11 +24,15 @@ import {
   matchesFoundationSearch,
   readyFoundationNavigation,
 } from "@/lib/foundation-navigation";
+import {
+  formatShowcaseNavLabel,
+  showcaseNavigation,
+} from "@/lib/showcase-navigation";
 
 type SearchResult = {
   href: string;
   label: string;
-  group: "组件" | "巡检业务组件" | "业务模式" | "基础规范";
+  group: "组件" | "Business Components" | "业务模式" | "Showcase" | "基础规范";
 };
 
 function buildSearchCatalog(): SearchResult[] {
@@ -41,13 +45,20 @@ function buildSearchCatalog(): SearchResult[] {
     ...readyBusinessComponentsNavigation.map((item) => ({
       href: item.href,
       label: formatBusinessComponentNavLabel(item),
-      group: "巡检业务组件" as const,
+      group: "Business Components" as const,
     })),
     ...readyBusinessPatternNavigation.map((item) => ({
       href: item.href,
       label: formatBusinessPatternNavLabel(item),
       group: "业务模式" as const,
     })),
+    ...showcaseNavigation
+      .filter((item) => item.ready !== false)
+      .map((item) => ({
+        href: item.href,
+        label: formatShowcaseNavLabel(item),
+        group: "Showcase" as const,
+      })),
     ...readyFoundationNavigation.map((item) => ({
       href: item.href,
       label: formatFoundationNavLabel(item),
@@ -159,13 +170,13 @@ export function DocsSearch() {
     <div ref={containerRef} className="relative">
       <div
         className={cn(
-          "flex h-9 items-center gap-2 rounded-lg border border-border/80 bg-muted/40 transition-all duration-200",
+          "flex h-9 items-center gap-2 rounded-lg border border-border/80 bg-muted/40 px-3 transition-all duration-200",
           open
             ? "w-[220px] border-primary/30 bg-background shadow-sm sm:w-[280px]"
-            : "w-auto px-3 hover:border-primary/30 hover:bg-muted/70"
+            : "w-auto hover:border-primary/30 hover:bg-muted/70"
         )}
       >
-        <Search className="ml-3 h-4 w-4 shrink-0 text-muted-foreground" />
+        <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
 
         {open ? (
           <input
@@ -174,7 +185,7 @@ export function DocsSearch() {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="搜索页面…"
-            className="min-w-0 flex-1 bg-transparent pr-3 text-sm outline-none placeholder:text-muted-foreground"
+            className="min-h-0 min-w-0 flex-1 border-0 bg-transparent p-0 text-sm leading-5 outline-none placeholder:text-muted-foreground"
             aria-label="搜索文档"
             aria-expanded={open}
             aria-controls="docs-search-results"
@@ -185,7 +196,7 @@ export function DocsSearch() {
           <button
             type="button"
             onClick={openSearch}
-            className="flex min-w-0 flex-1 items-center gap-2 pr-3 text-sm text-muted-foreground hover:text-foreground"
+            className="flex min-w-0 flex-1 items-center gap-2 text-sm leading-5 text-muted-foreground hover:text-foreground"
             aria-label="搜索文档"
           >
             <span className="hidden sm:inline">搜索</span>

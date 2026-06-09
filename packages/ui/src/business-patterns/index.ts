@@ -4,3 +4,6 @@ export * as statistic from "./statistic";
 export * as tag from "./tag";
 export * as badge from "./badge";
 export * as steps from "./steps";
+export * as navigation from "./navigation";
+export * as detail from "./detail";
+export * as layout from "./layout";

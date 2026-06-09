@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "predev": "pnpm --filter @yd-ds/ui build",
-    "dev": "next dev --port 3000",
+    "dev": "pnpm --filter @yd-ds/ui dev & next dev --port 3000",
     "dev:fresh": "rm -rf .next && next dev --port 3000",
     "dev:clean": "sh -c 'lsof -ti :3000 | xargs kill -9 2>/dev/null; rm -rf .next && next dev --port 3000'",
     "build": "next build",
