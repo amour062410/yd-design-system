@@ -225,6 +225,37 @@ export default function TablePage() {
         <TableDesignSpecShowcase />
       </section>
 
+      <section id="table-mandatory-rules" className="scroll-mt-24 space-y-4">
+        <h2 className="text-2xl font-semibold tracking-tight">强制规范</h2>
+        <div className="rounded-lg border-l-4 border-l-amber-500 bg-amber-50/50 px-5 py-4 space-y-3">
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-500 text-xs font-bold text-white">
+              1
+            </span>
+            <div>
+              <p className="font-medium text-amber-900">表头与表内容左对齐</p>
+              <p className="text-sm text-amber-700">
+                所有表头（<code className="rounded bg-amber-100 px-1">th</code>
+                ）和表内文字内容（<code className="rounded bg-amber-100 px-1">td</code>
+                ）必须使用左对齐，禁止使用居中对齐或右对齐。
+              </p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-500 text-xs font-bold text-white">
+              2
+            </span>
+            <div>
+              <p className="font-medium text-amber-900">操作区仅使用文字</p>
+              <p className="text-sm text-amber-700">
+                所有操作列（编辑、删除、详情等）必须使用纯文字链接，禁止使用
+                Icon 图标替代文字标签。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="table-business-patterns" className="scroll-mt-24 space-y-4">
         <h2 className="text-2xl font-semibold tracking-tight">
           Business Table Patterns
