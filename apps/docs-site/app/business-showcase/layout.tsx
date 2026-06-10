@@ -1,6 +1,6 @@
 import { BusinessShowcaseSidebar } from "@/components/business-showcase-sidebar";
 
-export default function BusinessStoreTreeLayout({
+export default function BusinessShowcaseLayout({
   children,
 }: {
   children: React.ReactNode;

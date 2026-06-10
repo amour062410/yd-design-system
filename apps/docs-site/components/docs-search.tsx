@@ -5,10 +5,9 @@ import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { cn } from "@yd-ds/ui";
 import {
-  formatBusinessPatternNavLabel,
-  matchesBusinessPatternSearch,
-  readyBusinessPatternNavigation,
-} from "@/lib/business-patterns-navigation";
+  formatBusinessShowcaseNavLabel,
+  businessShowcaseNavigation,
+} from "@/lib/business-showcase-navigation";
 import {
   formatComponentNavLabel,
   matchesComponentSearch,
@@ -24,15 +23,11 @@ import {
   matchesFoundationSearch,
   readyFoundationNavigation,
 } from "@/lib/foundation-navigation";
-import {
-  formatShowcaseNavLabel,
-  showcaseNavigation,
-} from "@/lib/showcase-navigation";
 
 type SearchResult = {
   href: string;
   label: string;
-  group: "组件" | "Business Components" | "业务模式" | "Showcase" | "基础规范";
+  group: "组件" | "业务组件" | "业务展示" | "基础规范";
 };
 
 function buildSearchCatalog(): SearchResult[] {
@@ -45,19 +40,14 @@ function buildSearchCatalog(): SearchResult[] {
     ...readyBusinessComponentsNavigation.map((item) => ({
       href: item.href,
       label: formatBusinessComponentNavLabel(item),
-      group: "Business Components" as const,
+      group: "业务组件" as const,
     })),
-    ...readyBusinessPatternNavigation.map((item) => ({
-      href: item.href,
-      label: formatBusinessPatternNavLabel(item),
-      group: "业务模式" as const,
-    })),
-    ...showcaseNavigation
+    ...businessShowcaseNavigation
       .filter((item) => item.ready !== false)
       .map((item) => ({
         href: item.href,
-        label: formatShowcaseNavLabel(item),
-        group: "Showcase" as const,
+        label: formatBusinessShowcaseNavLabel(item),
+        group: "业务展示" as const,
       })),
     ...readyFoundationNavigation.map((item) => ({
       href: item.href,
@@ -75,8 +65,8 @@ function matchesSearchItem(item: SearchResult, query: string) {
     (c) => c.href === item.href
   );
   if (businessComponentItem) return matchesBusinessComponentSearch(businessComponentItem, query);
-  const patternItem = readyBusinessPatternNavigation.find((p) => p.href === item.href);
-  if (patternItem) return matchesBusinessPatternSearch(patternItem, query);
+  const showcaseItem = businessShowcaseNavigation.find((p) => p.href === item.href);
+  if (showcaseItem) return item.label.toLowerCase().includes(query.trim().toLowerCase());
   const foundationItem = readyFoundationNavigation.find((f) => f.href === item.href);
   if (foundationItem) return matchesFoundationSearch(foundationItem, query);
   return item.label.toLowerCase().includes(query.trim().toLowerCase());

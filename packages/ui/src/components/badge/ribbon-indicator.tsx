@@ -12,20 +12,19 @@ export type RibbonIndicatorProps = {
   className?: string;
 };
 
-/** Arco / Ant ribbon：右下 6px clip 切角 + 左下折线三角 */
-const BODY_CLIP =
-  "polygon(0 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%)";
-
+/** Ant Design Ribbon 风格：直角矩形 + border 折角 + filter 阴影 */
 export const RibbonIndicator = forwardRef<HTMLSpanElement, RibbonIndicatorProps>(
   function RibbonIndicator({ text, status = "danger", className }, ref) {
     const ribbon = getRibbonStyle(status);
 
-    const bodyStyle: CSSProperties = {
+    const ribbonBodyStyle: CSSProperties = {
+      position: "absolute",
+      top: "var(--badge-ribbon-offset-y, 6px)",
+      right: "var(--badge-ribbon-offset-x, -6px)",
+      zIndex: "var(--badge-ribbon-z-index, 10)",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      width: "fit-content",
-      maxWidth: "fit-content",
       height: "var(--badge-ribbon-height, 22px)",
       padding: "0 var(--badge-ribbon-padding-x, 8px)",
       fontSize: "var(--badge-ribbon-font-size, 12px)",
@@ -33,24 +32,24 @@ export const RibbonIndicator = forwardRef<HTMLSpanElement, RibbonIndicatorProps>
       lineHeight: "var(--badge-ribbon-height, 22px)",
       color: ribbon.text,
       backgroundColor: ribbon.bg,
-      borderRadius: "var(--badge-ribbon-radius, 2px 0 0 2px)",
-      clipPath: BODY_CLIP,
-      boxShadow: "var(--badge-ribbon-shadow, 0 2px 8px rgba(0, 0, 0, 0.15))",
-      boxSizing: "border-box",
+      borderRadius: "var(--badge-ribbon-radius, 2px)",
+      borderEndEndRadius: 0,
+      whiteSpace: "nowrap",
+      filter: "var(--badge-ribbon-shadow, drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12)))",
     };
 
-    const leftNotchStyle: CSSProperties = {
+    const cornerStyle: CSSProperties = {
       position: "absolute",
-      bottom: "-4px",
-      left: 0,
-      width: 0,
-      height: 0,
-      borderStyle: "solid",
-      borderWidth: "2px",
-      borderTopColor: ribbon.fold,
-      borderRightColor: ribbon.fold,
+      top: "100%",
+      right: 0,
+      width: "var(--badge-ribbon-corner-size, 6px)",
+      height: "var(--badge-ribbon-corner-size, 6px)",
+      color: ribbon.fold,
+      border: "3px solid",
+      borderRightColor: "transparent",
       borderBottomColor: "transparent",
-      borderLeftColor: "transparent",
+      transform: "scaleY(0.75)",
+      transformOrigin: "top",
       pointerEvents: "none",
     };
 
@@ -59,17 +58,11 @@ export const RibbonIndicator = forwardRef<HTMLSpanElement, RibbonIndicatorProps>
         ref={ref}
         role="status"
         aria-label={text}
-        className={cn("absolute whitespace-nowrap", className)}
-        style={{
-          top: "var(--badge-ribbon-offset-y, -1px)",
-          right: "var(--badge-ribbon-offset-x, -6px)",
-          zIndex: "var(--badge-ribbon-z-index, 10)",
-        }}
+        className={cn("whitespace-nowrap", className)}
+        style={ribbonBodyStyle}
       >
-        <span className="relative inline-block w-fit">
-          <span style={bodyStyle}>{text}</span>
-          <span aria-hidden data-ribbon-notch="left" style={leftNotchStyle} />
-        </span>
+        <span>{text}</span>
+        <span aria-hidden data-ribbon-corner style={cornerStyle} />
       </span>
     );
   }

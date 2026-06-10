@@ -144,7 +144,7 @@ export default function BadgePage() {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold tracking-tight">丝带徽标</h2>
         <p className="text-sm text-muted-foreground">
-          Arco / Ant Ribbon 风格：右下 6px 切角、左下折线、投影悬浮；悬挂 top: -1px、right: -6px。
+          Arco / Ant Ribbon 风格：右下 6px clip 切角、左下折线阴影、轻量悬浮感；悬挂 right: -4px。
         </p>
         <BadgeRibbonShowcase />
       </section>

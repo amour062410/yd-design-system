@@ -34,6 +34,6 @@ export function TableActionGroup({
   className?: string;
 }) {
   return (
-    <span className={cn("inline-flex items-center gap-3", className)}>{children}</span>
+    <span className={cn("inline-flex flex-nowrap items-center gap-3 whitespace-nowrap", className)}>{children}</span>
   );
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { StoreManagementView } from "@/app/business-patterns/store-management/store-management-view";
+import { StoreManagementView } from "@/app/business-showcase/patterns/store-management/store-management-view";
 
 export const metadata: Metadata = {
   title: "Store Tree | Business Patterns",

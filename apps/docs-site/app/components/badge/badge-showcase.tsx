@@ -122,13 +122,13 @@ function RibbonCard({
       type="ribbon"
       status={status}
       text={text}
-      className="w-full max-w-sm"
+      className="w-full max-w-[240px]"
     >
-      <div className="relative overflow-visible rounded-lg border bg-card shadow-sm">
-        <div className="px-6 pb-5 pt-10">
-          <p className="text-base font-semibold text-foreground">{title}</p>
-          <hr className="my-3 border-border" />
-          <p className="text-sm text-muted-foreground">{desc}</p>
+      <div className="relative overflow-visible rounded-lg border border-border/80 bg-card">
+        <div className="px-5 pb-4 pt-8">
+          <p className="text-[15px] font-semibold text-foreground">{title}</p>
+          <div className="my-2.5 h-px bg-border/60" />
+          <p className="text-[13px] leading-relaxed text-muted-foreground">{desc}</p>
         </div>
       </div>
     </Badge>
@@ -139,10 +139,9 @@ export function BadgeRibbonShowcase() {
   return (
     <ShowcasePanel>
       <p className="mb-6 text-sm text-muted-foreground">
-        Arco / Ant Ribbon：22px · 右下 clip 切角 · 左下折线 · 阴影悬浮；悬挂 top: -1px、right:
-        -6px；推荐 / 高风险 / 待整改 / 新品。
+        Arco / Ant Ribbon：24px · 右下 6px clip 切角 · 左下折线阴影 · 轻量悬浮；悬挂 right: -4px；推荐 / 高风险 / 待整改 / 新品。
       </p>
-      <div className="flex flex-col gap-6">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {RIBBON_CARD_DEMOS.map((item) => (
           <RibbonCard key={item.text} {...item} />
         ))}

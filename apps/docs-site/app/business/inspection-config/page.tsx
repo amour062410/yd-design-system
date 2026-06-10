@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function BusinessInspectionConfigPage() {
-  redirect("/business-patterns/inspection-config");
+  redirect("/business-showcase/patterns/inspection-config");
 }

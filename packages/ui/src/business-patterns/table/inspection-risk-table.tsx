@@ -99,7 +99,7 @@ export function InspectionRiskTable({
                 { key: "time", title: "最近巡检时间", w: 130 },
                 { key: "status", title: "整改状态", w: 100 },
                 { key: "rate", title: "整改完成率", w: 110 },
-                { key: "action", title: "操作", fixed: true, w: onView ? 160 : 120 },
+                { key: "action", title: "操作", fixed: true, w: onView ? 200 : 120 },
               ].map((col) => (
                 <th
                   key={col.key}
@@ -140,8 +140,8 @@ export function InspectionRiskTable({
                     <RiskColorBar level={RISK_BAR_MAP[row.riskLevel]} />
                   </td>
                   <td style={{ padding: cellPad }}>
-                    <div className="flex flex-nowrap items-center gap-2">
-                      <span className="font-medium text-[color:var(--color-text-primary)]">
+                    <div className="flex flex-nowrap items-center gap-2 whitespace-nowrap">
+                      <span className="truncate font-medium text-[color:var(--color-text-primary)]">
                         {row.storeName}
                       </span>
                       {row.storeType ? (
@@ -180,7 +180,7 @@ export function InspectionRiskTable({
                   >
                     {row.lastInspectionAt}
                   </td>
-                  <td style={{ padding: cellPad }}>
+                  <td style={{ padding: cellPad }} className="whitespace-nowrap">
                     <RectificationStatusTag status={row.rectificationStatus} />
                   </td>
                   <td style={{ padding: cellPad }}>
