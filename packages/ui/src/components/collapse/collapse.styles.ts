@@ -47,7 +47,6 @@ export function getHeaderStyle(size: CollapseSizeKey): CSSProperties {
   const spec = collapseSizeSpecs[size];
 
   return {
-    height: spec.headerHeight,
     minHeight: spec.headerHeight,
     paddingLeft: spec.paddingX,
     paddingRight: spec.paddingX,

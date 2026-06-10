@@ -571,7 +571,7 @@ export function DatePicker({
   }, [open, closePanel]);
 
   const singleVal = !range && !isRangeValue(value) ? value : null;
-  const rangeVal = range ? normalizeRange(value) : null;
+  const rangeVal = useMemo(() => (range ? normalizeRange(value) : null), [range, value]);
 
   const displayText = useMemo(() => {
     if (range && rangeVal) {

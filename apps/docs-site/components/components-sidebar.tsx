@@ -33,7 +33,7 @@ export function ComponentsSidebar() {
   const groups = groupByCategory(componentNavigation);
 
   return (
-    <aside className="hidden w-56 shrink-0 overflow-y-auto pb-8 md:block">
+    <aside className="hidden w-56 shrink-0 sticky top-[80px] max-h-[calc(100vh-96px)] overflow-y-auto pb-8 md:block">
       {/* Page title */}
       <h2 className="mb-5 text-sm font-semibold text-text-primary">组件</h2>
 

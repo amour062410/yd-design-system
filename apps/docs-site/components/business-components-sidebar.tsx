@@ -12,7 +12,7 @@ export function BusinessComponentsSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-full shrink-0 overflow-hidden md:w-60">
+    <aside className="w-full shrink-0 sticky top-[80px] max-h-[calc(100vh-96px)] overflow-y-auto md:w-60">
       <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
         业务组件
       </p>

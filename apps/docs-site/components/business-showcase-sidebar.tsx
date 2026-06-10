@@ -17,7 +17,7 @@ export function BusinessShowcaseSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-full shrink-0 md:w-[220px]">
+    <aside className="w-full shrink-0 sticky top-[80px] max-h-[calc(100vh-96px)] overflow-y-auto md:w-[220px]">
       <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
         业务展示
       </p>

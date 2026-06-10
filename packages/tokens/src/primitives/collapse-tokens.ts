@@ -24,7 +24,7 @@ export const collapseTokens = {
   "collapse-motion-easing": "ease-out",
 
   "collapse-header-height-sm": "40px",
-  "collapse-header-height-md": "44px",
+  "collapse-header-height-md": "48px",
   "collapse-header-height-lg": "56px",
 
   "collapse-padding-x-sm": spacing[3],
@@ -32,7 +32,7 @@ export const collapseTokens = {
   "collapse-padding-x-lg": spacing[5],
 
   "collapse-padding-y-sm": spacing[2],
-  "collapse-padding-y-md": spacing[0],
+  "collapse-padding-y-md": spacing[3],
   "collapse-padding-y-lg": spacing[4],
 
   "collapse-content-padding-x-sm": spacing[4],

@@ -9,7 +9,7 @@ export function FoundationSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden w-60 shrink-0 overflow-hidden md:block">
+    <aside className="hidden w-60 shrink-0 sticky top-[80px] max-h-[calc(100vh-96px)] overflow-y-auto md:block">
       <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
         Foundation
       </p>
